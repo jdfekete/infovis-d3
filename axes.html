@@ -1,0 +1,35 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="/css/graph.css">
+    <title>Axes</title>
+  </head>
+  <body>
+    <script type="text/javascript" src="https://d3js.org/d3.v4.js"></script>    
+    <script type="text/javascript">
+      var numbers = [ 5, 4, 10, 1 ],
+          data = [
+              { date: '2014-01-01', amount: 10 },
+              { date: '2014-02-01', amount: 20 },
+              { date: '2014-03-01', amount: 40 },
+              { date: '2014-04-01', amount: 80 }
+          ];
+
+      var x = d3.scaleTime()
+          .range([50, 250])
+          .domain(d3.extent(data, function(d) { return new Date(d.date); }));
+      // x is the d3.scaleTime()
+      var xAxis = d3.axisBottom(x)
+      .ticks(4); // specify the number of ticks
+      
+      var svg = d3.select('body')
+      .append('svg')        // create an <svg> element
+      .attr('width', 300) // set its dimentions
+      .attr('height', 150);
+      
+      svg.append('g')            // create a <g> element
+      .attr('class', 'x axis') // specify classes
+      .call(xAxis);            // let the axis do its thing
+    </script>
+  </body>
+</html>

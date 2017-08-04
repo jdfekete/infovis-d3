@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CSS</title>
+    <style type="text/css">
+/* Applied to all <p> tags */
+p {
+  color: blue;
+}
+
+/* Applied to all tags with the class "red" */
+.red {
+  background: red;
+}
+
+/* Applied to the tag with the id "some-id" */
+#some-id {
+  font-style: italic;
+}
+
+/* Applied only to <p> tags that are inside <li> tags */
+li p {
+  color: #0C0;
+}
+</style>
+  </head>
+  <body>
+    <div>
+      <p>Normal paragraph</p>
+      
+      <p class="red">Red paragraph</p>
+    </div>
+    
+    <ol>
+      <li id="some-id">Unique element</li>
+      <li>Another list element</li>
+      <li>
+        <p>Paragraph inside list element</p>
+        <p>Second paragraph</p>
+      </li>
+    </ol>
+  </body>
+</html>

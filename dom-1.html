@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>DOM 1</title>
+    <style type="text/css">
+/* Applied to all <p> tags */
+p {
+  color: blue;
+}
+
+/* Applied to all tags with the class "red" */
+.red {
+  background: red;
+}
+
+/* Applied to the tag with the id "some-id" */
+#some-id {
+  font-style: italic;
+}
+
+/* Applied only to <p> tags that are inside <li> tags */
+li p {
+  color: #0C0;
+}
+</style>
+  </head>
+  <body>
+    <div>
+      <p>Normal paragraph</p>
+      
+      <p class="red">Red paragraph</p>
+    </div>
+    
+    <ol>
+      <li id="some-id">Unique element</li>
+      <li>Another list element</li>
+      <li>
+        <p>Paragraph inside list element</p>
+        <p>Second paragraph</p>
+      </li>
+    </ol>
+    <script type="text/javascript">
+// DOM API
+document.getElementById('some-id');
+// <li id="some-id">Unique element</li>
+document.getElementsByTagName('p').length;
+// 4
+var reds = document.getElementsByClassName('red');
+// [<p class="red">Red paragraph</p>]
+reds[0].innerText
+// "Red paragraph"
+    </script>
+    <script src="https://d3js.org/d3.v4.js"></script>    
+    <script>
+// D3 Selection API
+d3.select('p').size(); // select() only finds one
+// 1
+d3.selectAll('p').size(); // selectAll() finds all
+// 4
+var reds = d3.selectAll('.red');
+// [ > Array[1] ]
+reds.text();
+// "Red paragraph"
+    </script>
+  </body>
+</html>

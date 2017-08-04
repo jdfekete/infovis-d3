@@ -11,16 +11,19 @@
     -->
     <script type="text/javascript" src="lib/d3.v4.min.js"></script>
     <script type="text/javascript">
-      var data = [
-              { date: new Date('2014-01-01'), amount: 10 },
-              { date: new Date('2014-02-01'), amount: 20 },
-              { date: new Date('2014-03-01'), amount: 40 },
-              { date: new Date('2014-04-01'), amount: 80 }
-          ];
+    var width = 350,
+        height = 120,
+        margin = { top: 10, right: 50, bottom: 30, left: 50 };
 
-      var width = 350,
-          height = 120,
-          margin = { top: 10, right: 50, bottom: 30, left: 50 };
+    function row(d) {
+          return {
+            date: new Date(d.date),
+            amount: d.amount
+          };
+        }
+
+    d3.csv("scatterplot.csv", row, function(error, data) {
+      if (error) throw error;
 
       var x = d3.scaleTime()
           .range([0, width])
@@ -73,6 +76,7 @@
       .attr("d", line);
 */
       //<circle r="5" cx="0" cy="105" />
+    });
     </script>
   </body>
 </html>

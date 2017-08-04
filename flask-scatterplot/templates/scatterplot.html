@@ -1,0 +1,80 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="static/css/main.css">
+    <link rel="stylesheet" href="static/css/graph.css">
+    <title>Scatterplot D3 Flask</title>
+  </head>
+  <body>
+    <!--
+    <script type="text/javascript" src="https://d3js.org/d3.v4.js"></script>
+    Look at https://jsfiddle.net/jdfekete/qqotny2d/
+    -->
+    <script type="text/javascript" src="static/lib/d3.v4.min.js"></script>
+    <script type="text/javascript">
+    var width = 350,
+        height = 120,
+        margin = { top: 10, right: 50, bottom: 30, left: 50 };
+
+
+    //d3.csv("static/scatterplot.csv", row, function(error, data) {
+    d3.json("data", function(data) {
+      for (d in data) {
+        if (data[d].date)
+          data[d].date = new Date(data[d].date);
+      }
+
+      var x = d3.scaleTime()
+          .range([0, width])
+          .domain(d3.extent(data, function(d) { return d.date; }));
+      var xAxis = d3.axisBottom(x)
+          .tickSize(-height)
+          .ticks(4);
+
+      var y = d3.scaleLinear()
+        .range([height, 0])
+        .domain([0, d3.max(data, function(d) { return d.amount; })]);
+
+      var yAxis = d3.axisLeft(y)
+        .tickFormat(d3.format('$,d'))
+        .tickSize(-width)
+        .ticks(5);
+
+      var svg = d3.select('body')
+        .append('svg')        // create an <svg> element
+         .attr('width', width + margin.left + margin.right)
+         .attr('height', height + margin.top + margin.bottom)
+        .append('g')
+         .attr('transform', "translate("+margin.left+","+margin.top+")");
+
+      svg.append('g')            // create a <g> element
+        .attr('class', 'x axis') // specify classes
+        .attr('transform', "translate("+0+","+height+")")
+        .call(xAxis);            // let the axis do its thing
+      svg.append('g')
+        .attr('class', 'y axis')
+        .call(yAxis);
+
+      var circles = svg.selectAll('circle')
+        .data(data);
+
+      circles.enter()
+        .append("circle")
+          .attr("r", 5)
+          .attr("cx", function(d, i) { return x(d.date); })
+          .attr("cy", function(d, i) { return y(d.amount); });
+
+/*
+      var line = d3.line()
+        .x(function(d) { return x(d.date); })
+        .y(function(d) { return y(d.amount); })
+
+      svg.append("path")
+      .datum(data)
+      .attr("class", "line")
+      .attr("d", line);
+*/
+      //<circle r="5" cx="0" cy="105" />
+    });
+    </script>
+  </body>
+</html>

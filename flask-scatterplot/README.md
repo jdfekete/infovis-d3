@@ -13,3 +13,5 @@ Then:
 export FLASK_APP=scatterplot.py
 flask run
 ```
+
+In your browser, open the url: `localhost:5000`
